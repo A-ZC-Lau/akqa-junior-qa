@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node -r module-alias/register index.js",
-    "jest": "jest --bail ./src/tests/bunnings.spec.js",
+    "test": "jest --bail ./src/tests/bunnings.spec.js",
     "production": "",
     "staging": ""
   },
