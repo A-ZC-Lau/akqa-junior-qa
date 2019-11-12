@@ -21,11 +21,11 @@ class BasePage
 
 
 
-    async clickWhenReady (element)
+    async clickWhenReady (selector)
     {
-        await driver.wait(this.webdriver.until.elementIsVisible(element));
-        await driver.wait(this.webdriver.until.elementIsEnabled(element));
-        await element.click();
+        await driver.wait(this.webdriver.until.elementIsVisible(selector));
+        let target = await driver.wait(this.webdriver.until.elementIsEnabled(selector));
+        await target.click();
     }
 }
 
