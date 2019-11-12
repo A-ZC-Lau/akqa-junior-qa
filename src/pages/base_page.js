@@ -14,7 +14,7 @@ class BasePage
 
 
 
-    async loadPage (target_url)
+    async loadPage ()
     {
         await this.driver.get(this.target_url);
     }
