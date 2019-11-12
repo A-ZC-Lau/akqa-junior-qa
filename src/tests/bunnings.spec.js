@@ -11,7 +11,7 @@ const driver = new webdriver.Builder()
 
 
 describe(
-    "bunnings test",
+    "Bunnings test",
     function ()
     {
         let 
@@ -44,10 +44,8 @@ describe(
                     "can load page",
                     async function ()
                     {
-                        let result = await products_page.loadPage();
-                        expect(result).toBe(true);
-                    },
-                    30000
+                        await products_page.loadPage();
+                    }
                 );
 
                 it(
@@ -56,6 +54,14 @@ describe(
                     {
                         let count = await products_page.getProductsCount();
                         expect(count).toBeGreaterThan(0);
+                    }
+                );
+
+                it(
+                    "can click a random product",
+                    async function ()
+                    {
+                        await products_page.clickRandomProduct();
                     }
                 );
             }
@@ -69,18 +75,15 @@ describe(
                     "can click wishlist button",
                     async function ()
                     {
-                        let result = await product_details_page.clickWishlistButton();
-                        expect(result).toBe(true);
-                    },
-                    30000
+                        await product_details_page.clickWishlistButton();
+                    }
                 );
 
                 it(
                     "can load wishlist page",
                     async function ()
                     {
-                        let result = await product_details_page.loadPage();
-                        expect(result).toBe(true);
+                        await product_details_page.loadPage();
                     }
                 );
             }
@@ -90,7 +93,14 @@ describe(
             "WishlistPage",
             function ()
             {
-
+                it(
+                    "can grab number of wishlist items",
+                    async function ()
+                    {
+                        let count = await wishlist_page.getProductsCount();
+                        expect(+count).toBeGreaterThan(0);
+                    }
+                );
             }
         );
 
