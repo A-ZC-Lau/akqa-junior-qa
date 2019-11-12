@@ -25,7 +25,7 @@ class ProductDetailsPage extends BasePage
 
         let wishlist_button = await this.driver.findElement(css_selector);
         await wishlist_button.click();
-        
+
         let wishlist_tooltip = {
             css: "div.tooltip-wishlist-confirmation__container"
         };
