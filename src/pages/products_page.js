@@ -2,13 +2,13 @@ class ProductDetailsPage
 {
     constructor ({
         driver,
-        target_url,
+        target_url = "https://www.bunnings.com.au/search/products?q=paint&redirectFrom=Any",
     })
     {
         super({
             driver,
+            target_url
         });
-        this.target_url = target_url;
     }
 
 

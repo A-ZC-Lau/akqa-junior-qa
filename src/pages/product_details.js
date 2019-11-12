@@ -5,10 +5,12 @@ class ProductDetailsPage extends BasePage
 {
     constructor ({
         driver,
+        target_url = "https://www.bunnings.com.au/wish-lists/"
     })
     {
         super({
             driver, 
+            target_url
         });
     }
     
