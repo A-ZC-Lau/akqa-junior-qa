@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "test"
+    "test": "test",
+    "production": "",
+    "staging": "",
   },
   "author": "Alexander Lau",
   "license": "ISC",
