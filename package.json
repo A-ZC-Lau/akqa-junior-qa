@@ -4,6 +4,7 @@
   "description": "akqa code test",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "test"
   },
   "author": "Alexander Lau",
