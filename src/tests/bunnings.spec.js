@@ -1,4 +1,4 @@
-const ProductsPage = require("");
+const ProductsPage = require("./node_modules");
 
 describe(
     "bunnings test",
