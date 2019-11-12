@@ -1,4 +1,7 @@
-class ProductDetailsPage
+// webdriver imported by BasePage
+const BasePage = require("./base_page");
+
+class ProductDetailsPage extends BasePage
 {
     constructor ({
         driver,
@@ -15,28 +18,29 @@ class ProductDetailsPage
 
     async getProducts ()
     {
-        let products = await driver.findElements(this.webdriver.By.css("section.product-list > article"));
+        let products = await this.driver.findElements(this.webdriver.By.css("section.product-list > article"));
         return products;
     }
 
 
 
-    async getNumberOfProducts ()
+    async getProductsCount ()
     {
-        return await this.getProducts().length;
+        let products = await this.getProducts();
+        return products.length;
     }
 
 
 
     async clickRandomProduct ()
     {
-        let products = this.getProducts();
+        let products = await this.getProducts();
         if (products.length < 0)
         {
             throw Error("no products");
         }
         let selected_index = Math.floor(Math.random() * products.length);
-        this.clickWhenReady(products[selected_index]);
+        await products[selected_index].click();
     }
 }
 
