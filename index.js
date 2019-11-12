@@ -1,44 +1,73 @@
-const {Builder, By, Key, until} = require('selenium-webdriver');
+require("chromedriver");
+const {
+    Builder, 
+    By,
+    until
+} = require("selenium-webdriver");
 
-async function setup ()
+let driver = new Builder()
+    .forBrowser("chrome")
+    .setChromeOptions()
+    .build();
+
+async function setup () 
 {
-    let driver = await new Builder()
-        .forBrowser("chrome")
-        .setChromeOptions()
-        .build();
     await driver
         .get("https://www.bunnings.com.au/search/products?q=paint&redirectFrom=Any");
-    driver // ! delete me
-        .takeScreenshot()
-
-    let products = await driver
-        .findElements(By.css("article.product-list > article"));
-    let selection = Math.floor(
-            Math.random() * products.length
-        );
-    await products[selection].click();
-    
-    let wishlist_locator = By
-        .css("button[buttonstyle=secondary]");
+    let products = 
+        await driver
+            .findElements(
+                By.css("section.product-list > article")
+            );
+    if (products.length < 0)
+    {
+        throw Error("no products");
+    }
+    let selected_index = Math
+        .floor(Math.random() * products.length);
+    console.log(products.length);
+    console.log(selected_index);
     await driver
-        .wait(until.elementLocated(wishlist_locator));
-    let wishlist_button = await driver
-        .findElement(wishlist_locator);
-    driver // ! delete me
-        .takeScreenshot()
-    await wishlist_button
+        .wait(
+            until.elementIsVisible(products[selected_index])
+        );
+    await driver
+        .wait(
+            until.elementIsEnabled(products[selected_index])
+        );
+    await products[selected_index]
         .click();
+    
+    let selector = By.css("button[buttonstyle=secondary]");
+    let css_selector = {
+        css: "button[buttonstyle=secondary]" 
+    };
+    console.log(selector);
+    let button =
+        await driver
+            .wait(until.elementLocated(css_selector));
+    console.log(button);
+    button.click();
+    // let wishlist_button = await driver
+    //     .findElement(css_selector);
+    //     // .findElement(By.css("button[buttonstyle=secondary]"));
+    // await wishlist_button
+    //     .click();
 
     let wishlist_tooltip = By
-        .css("tooltip-wishlist-confirmation__container")
+        .css("div.tooltip-wishlist-confirmation__container");
     await driver
         .wait(until.elementLocated(wishlist_tooltip));
-    driver // ! delete me
-        .takeScreenshot()
 
-    
+    await driver
+        .get("https://www.bunnings.com.au/wish-lists/");
+    let wishlist_products = await driver
+        .findElements(
+            By.css("tr.hproduct")
+        );
+
+    console.log(wishlist_products.length);
+    driver.quit();
 }
 
-setup()
-
-
+setup();
