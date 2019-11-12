@@ -18,13 +18,20 @@ class ProductDetailsPage extends BasePage
 
     async clickWishlistButton ()
     {
-        let wishlist_locator = this.webdriver.By.css("button[buttonstyle=secondary]");
-        await driver.wait(until.elementLocated(wishlist_locator));
-        let wishlist_button = await driver.findElement(wishlist_locator);
+        let css_selector = {
+            css: "button[buttonstyle=secondary]"
+        };
+        await this.driver.wait(this.webdriver.until.elementLocated(css_selector));
+
+        let wishlist_button = await this.driver.findElement(css_selector);
         await wishlist_button.click();
-        let wishlist_tooltip = this.webdriver.By.css("div.tooltip-wishlist-confirmation__container");
+        
+        let wishlist_tooltip = {
+            css: "div.tooltip-wishlist-confirmation__container"
+        };
         // we wait until the tooltip shows, indicating it has been saved onto wishlist
-        await driver.wait(until.elementLocated(wishlist_tooltip));
+        await this.driver.wait(this.webdriver.until.elementLocated(wishlist_tooltip));
+        return true;
     }
 }
 
