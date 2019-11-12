@@ -20,6 +20,9 @@ class ProductDetailsPage extends BasePage
         await driver.wait(until.elementLocated(wishlist_locator));
         let wishlist_button = await driver.findElement(wishlist_locator);
         await wishlist_button.click();
+        let wishlist_tooltip = this.webdriver.By.css("div.tooltip-wishlist-confirmation__container");
+        // we wait until the tooltip shows, indicating it has been saved onto wishlist
+        await driver.wait(until.elementLocated(wishlist_tooltip));
     }
 }
 
