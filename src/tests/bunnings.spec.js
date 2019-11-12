@@ -1,12 +1,11 @@
 const webdriver = require("selenium-webdriver");
 
-const ProductsPage = require("@/product_details");
+const ProductsPage = require("@/products_page");
 const ProductDetailsPage = require("@/product_details");
 const WishlistPage = require("@/wishlist");
 
 const driver = new webdriver.Builder()
     .forBrowser("chrome")
-    .setLoggingPrefs(pref)
     .build();
 
 
@@ -23,7 +22,7 @@ describe(
 
 
         beforeAll(
-            async function ()
+            function ()
             {
                 products_page = new ProductsPage({
                     driver
@@ -45,9 +44,60 @@ describe(
                     "can load page",
                     async function ()
                     {
-                        await products_page.loadPage();
+                        let result = await products_page.loadPage();
+                        expect(result).toBe(true);
+                    },
+                    30000
+                );
+
+                it(
+                    "has more than 0 products",
+                    async function ()
+                    {
+                        let count = await products_page.getProductsCount();
+                        expect(count).toBeGreaterThan(0);
                     }
                 );
+            }
+        );
+
+        describe(
+            "ProductDetailsPage",
+            function ()
+            {
+                it(
+                    "can click wishlist button",
+                    async function ()
+                    {
+                        let result = await product_details_page.clickWishlistButton();
+                        expect(result).toBe(true);
+                    },
+                    30000
+                );
+
+                it(
+                    "can load wishlist page",
+                    async function ()
+                    {
+                        let result = await product_details_page.loadPage();
+                        expect(result).toBe(true);
+                    }
+                );
+            }
+        );
+
+        describe(
+            "WishlistPage",
+            function ()
+            {
+
+            }
+        );
+
+        afterAll(
+            async function ()
+            {
+                await driver.quit();
             }
         );
     }

@@ -4,8 +4,8 @@
   "description": "akqa code test",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "test",
+    "start": "node -r module-alias/register index.js",
+    "test": "jest --bail ./src/tests/bunnings.spec.js",
     "production": "",
     "staging": ""
   },
@@ -24,5 +24,29 @@
   "devDependencies": {
     "jest": "^24.9.0",
     "jest-extended": "^0.11.2"
+  },
+  "jest": 
+  {
+    "bail": 
+      true,
+    "coverageDirectory": 
+      "./src/tests/coverage",
+    "moduleNameMapper": 
+    {
+      "@/(.*)$": 
+        "<rootDir>/src/pages/$1",
+      "#/(.*)$": 
+        "<rootDir>/src/tests/$1"
+    },
+    "setupFiles": 
+    [
+        "./src/tests/setup.js"
+    ],
+    "setupFilesAfterEnv":
+    [
+      "./src/tests/extensions.js"
+    ],
+    "testEnvironment": 
+      "node"
   }
 }
